@@ -2,19 +2,27 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CustomCard from '@socialmedia/components/customCard';
 import {vw} from '@socialmedia/utils/dimensions';
-import {mediaJSON} from '@socialmedia/utils/dummyData';
+// import {mediaJSON} from '@socialmedia/utils/dummyData';
+import {mediaJson} from '@socialmedia/utils/dummyData';
+import HeaderComponent from '@socialmedia/components/headerComponent';
 export default function Video() {
-  const data = mediaJSON.categories[0].videos;
   const listRender = ({item}: any) => {
-    console.log('-------', item.sources);
+    console.log('-------', item);
 
-    return <CustomCard />;
+    return (
+      <CustomCard
+        image={item?.thumb}
+        title={item.title}
+        viewNumber={'94k views '}
+        time={'3 days ago'}
+      />
+    );
   };
   return (
     <View style={styles.containerStyle}>
       {/* <CustomCard item={mediaJSON} /> */}
-
-      <FlatList data={data} renderItem={listRender} />
+      {/* <HeaderComponent title={'djkdffkjfk'} /> */}
+      <FlatList data={mediaJson} renderItem={listRender} />
     </View>
   );
 }

@@ -1,5 +1,6 @@
 import {
   Image,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -49,6 +50,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 40,
   },
   titleStyle: {
     fontSize: vw(18),
