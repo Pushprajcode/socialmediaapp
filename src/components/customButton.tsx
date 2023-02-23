@@ -3,8 +3,8 @@ import React from 'react';
 import {vh, vw} from '@socialmedia/utils/dimensions';
 import {COLORS} from '@socialmedia/utils/colors';
 interface customButtonType {
-  title: any;
-  buttonContainerStyle: any;
+  title?: any;
+  buttonContainerStyle?: any;
 }
 
 export default function CustomButton(props: customButtonType) {
@@ -17,17 +17,18 @@ export default function CustomButton(props: customButtonType) {
     </TouchableOpacity>
   );
 }
-
 const styles = StyleSheet.create({
   ContentContainerStyle: {
     marginHorizontal: vw(7),
-    height: vh(30),
+    height: vh(40),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.black,
-    borderRadius: vw(10),
+    backgroundColor: COLORS.tabbarColor,
+    borderRadius: vw(20),
+    width: vw(150),
   },
   textStyle: {
     color: COLORS.white,
+    textAlign: 'center',
   },
 });

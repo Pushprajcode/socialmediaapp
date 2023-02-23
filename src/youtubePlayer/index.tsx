@@ -1,19 +1,31 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import PlayerTitleComponent from '@socialmedia/components/playerTitleComponent';
-import {LocalImages} from '@socialmedia/utils/localImages';
 import {iconsData} from '@socialmedia/utils/dummyData';
-import {vw} from '@socialmedia/utils/dimensions';
+import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
+import {LocalImages} from '@socialmedia/utils/localImages';
+import {local_string} from '@socialmedia/utils/strings';
+import CustomButton from '@socialmedia/components/customButton';
+import {COLORS} from '@socialmedia/utils/colors';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description} = route.params;
   const renderImageData = ({item}: any) => {
-    console.log('item 23t4y789506-7', item);
     return (
-      <View style={styles.iconrenderView}>
-        <Image style={styles.iconsStyle} source={item.icon} />
+      <TouchableOpacity style={styles.iconrenderView} activeOpacity={0.7}>
+        <Image
+          resizeMode="contain"
+          style={styles.iconsStyle}
+          source={item.icon}
+        />
         <Text>{item.labels}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -29,11 +41,28 @@ export default function YouTubePlayer({route}: any) {
         <FlatList
           data={iconsData}
           renderItem={renderImageData}
+          contentContainerStyle={styles.contentContainerStyle}
           horizontal
-          // ItemSeparatorComponent={()=>{
-
-          // }}
         />
+        <View
+          style={{
+            flexDirection: 'row',
+            // borderWidth: 1,
+            alignItems: 'center',
+            paddingHorizontal: normalize(10),
+            justifyContent: 'space-between',
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <Image style={styles.iconImage} source={LocalImages.womenIcon} />
+            <View style={{marginLeft: vh(19)}}>
+              <Text style={styles.gurujiText}>
+                {local_string.Technicalguruji}
+              </Text>
+              <Text>{local_string.subcriber}</Text>
+            </View>
+          </View>
+          <CustomButton title={'JDJKDFJKjkdjkd'} />
+        </View>
       </View>
     );
   };
@@ -63,11 +92,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iconrenderView: {
-    borderWidth: 2,
-    backgroundColor: 'red',
+    height: vh(55),
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   iconsStyle: {
     height: vw(30),
     width: vw(30),
+  },
+  contentContainerStyle: {justifyContent: 'space-evenly', flex: 1},
+  iconImage: {
+    height: vw(30),
+    width: vw(30),
+    borderRadius: vw(10),
+  },
+  subscribeButton: {
+    height: vh(50),
+    width: vw(90),
+    backgroundColor: 'red',
+    borderRadius: vh(10),
+  },
+  gurujiText: {
+    color: COLORS.black,
   },
 });
