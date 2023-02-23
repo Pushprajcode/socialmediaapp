@@ -15,4 +15,5 @@ export const SCREEN_NAMES = {
   channels: 'Channels',
   Videos: 'Videos',
   Articles: 'Articles',
+  youTubePlayer: 'youTubePlayer',
 };

@@ -1,10 +1,9 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
 import CustomCard from '@socialmedia/components/customCard';
 import {vw} from '@socialmedia/utils/dimensions';
-// import {mediaJSON} from '@socialmedia/utils/dummyData';
 import {mediaJson} from '@socialmedia/utils/dummyData';
-import HeaderComponent from '@socialmedia/components/headerComponent';
+import {LocalImages} from '@socialmedia/utils/localImages';
+import {local_string} from '@socialmedia/utils/strings';
 export default function Video() {
   const listRender = ({item}: any) => {
     console.log('-------', item);
@@ -15,13 +14,14 @@ export default function Video() {
         title={item.title}
         viewNumber={'94k views '}
         time={'3 days ago'}
+        womenIcon={LocalImages.womenIcon}
+        subName={local_string.split}
+        description={item?.description}
       />
     );
   };
   return (
     <View style={styles.containerStyle}>
-      {/* <CustomCard item={mediaJSON} /> */}
-      {/* <HeaderComponent title={'djkdffkjfk'} /> */}
       <FlatList data={mediaJson} renderItem={listRender} />
     </View>
   );
@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     backgroundColor: '#e7f2f1',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: vw(18),
+    padding: 10,
   },
 });

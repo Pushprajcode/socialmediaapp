@@ -7,10 +7,10 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {LocalImages} from '@socialmedia/utils/localImages';
-import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
+import {vh, vw} from '@socialmedia/utils/dimensions';
 import {COLORS} from '@socialmedia/utils/colors';
-import ProfileComponent from './profileComponent';
+import {useNavigation} from '@react-navigation/native';
+import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
 
 interface customcardType {
   numColumns?: any;
@@ -18,29 +18,43 @@ interface customcardType {
   image: any;
   viewNumber: string;
   time: string;
+  womenIcon: any;
+  subName?: string;
+  description?: string;
 }
 
 export default function CustomCard(props: customcardType) {
-  const {title, image, viewNumber, time} = props;
+  const {title, image, viewNumber, time, subName, womenIcon, description} =
+    props;
+  const navigation = useNavigation<any>();
   console.log('--2364758690', title);
+  const onpressNavigator = () => {
+    navigation.navigate(SCREEN_NAMES.youTubePlayer, {
+      title: title,
+      time: time,
+      viewNumber: viewNumber,
+      description: description,
+    });
+  };
   return (
-    // <FlatList data={item} renderItem={onrender} />
-    // <View style={styles.cardContainer}>
-    //   <Image source={LocalImages.splash} style={styles.videoList} />
-    // </View>
-    // return (<View style={styles.cardContainer}></View>)
     <View style={styles.cardContainer}>
-      {/* <Image style={{height: 300}} source={{uri: video}} /> */}
-      {/* <Text>{'djjkfdjkfjkdfs'}</Text> */}
-      <TouchableOpacity activeOpacity={0.7}>
-        <Image
-          source={{uri: image}}
-          style={{height: vh(205), width: vw(335), resizeMode: 'contain'}}
-        />
-        <Text>{title}</Text>
-        <View style={styles.viewNumber}>
-          <Text>{viewNumber}</Text>
-          <Text>{time}</Text>
+      <TouchableOpacity activeOpacity={0.7} onPress={onpressNavigator}>
+        <Image source={{uri: image}} style={styles.imagestyle} />
+        <View
+          style={{
+            // borderWidth: 1,
+            flexDirection: 'column',
+            padding: 10,
+          }}>
+          <Text>{title}</Text>
+          <View style={styles.viewNumber}>
+            <Text>{viewNumber}</Text>
+            <Text>{time}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Image style={styles.womenImgStyle} source={womenIcon} />
+            <Text>{subName}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -50,17 +64,22 @@ export default function CustomCard(props: customcardType) {
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: COLORS.white,
-    // height: '40%',
-    // width: '100%',
-    borderRadius: vw(10),
-    padding: vh(10),
-    // marginVertical: vh(10),
-    // marginTop: 20,
-    borderWidth: vh(1),
     borderColor: COLORS.white,
-    // flex: 1,
+    marginVertical: 10,
+    borderRadius: vw(10),
   },
   viewNumber: {
     flexDirection: 'row',
+  },
+  imagestyle: {
+    height: vh(205),
+    width: '100%',
+    resizeMode: 'cover',
+    // borderRadius: 30,
+  },
+  womenImgStyle: {
+    height: vw(30),
+    width: vw(30),
+    borderRadius: vw(20),
   },
 });

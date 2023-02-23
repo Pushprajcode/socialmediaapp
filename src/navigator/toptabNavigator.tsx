@@ -4,6 +4,7 @@ import Channels from '@socialmedia/channels';
 import {COLORS} from '@socialmedia/utils/colors';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import Video from '@socialmedia/videolist';
+import YouTubePlayer from '@socialmedia/youtubePlayer';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {SCREEN_NAMES} from './screenNmaes';

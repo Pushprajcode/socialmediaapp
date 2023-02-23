@@ -2,6 +2,13 @@ export const LocalImages = {
   // splash: require('../assets/images/Background.png'),
   // logIcon: require('../assets/images/logIcon.png'),
   leftIcon: require('../assets/images/left.png'),
+  womenIcon: require('../assets/images/womanicon.png'),
+  likeIcon: require('../assets/images/like.png'),
+  dislikeIcon: require('../assets/images/dislike.png'),
+  shareIcon: require('../assets/images/share.png'),
+  heartIcon: require('../assets/images/heart.png'),
+  moneyIcon: require('../assets/images/money.png'),
+
   // userIcon: require('../assets/images/user.png'),
   // burgerIcon: require('../assets/images/burgerIcon.png'),
   // layerIcon: require('../assets/images/Layer.png'),
