@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     // marginTop: 20,
     borderWidth: vh(1),
     borderColor: COLORS.white,
-    flex: 1,
+    // flex: 1,
   },
   viewNumber: {
     flexDirection: 'row',
