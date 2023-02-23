@@ -42,11 +42,9 @@ export default function CustomCard(props: customcardType) {
         <Image source={{uri: image}} style={styles.imagestyle} />
         <View
           style={{
-            // borderWidth: 1,
-            flexDirection: 'column',
             padding: 10,
           }}>
-          <Text>{title}</Text>
+          <Text style={styles.titleTextStyle}>{title}</Text>
           <View style={styles.viewNumber}>
             <Text>{viewNumber}</Text>
             <Text>{time}</Text>
@@ -70,12 +68,16 @@ const styles = StyleSheet.create({
   },
   viewNumber: {
     flexDirection: 'row',
+    marginVertical: vh(10),
+  },
+  titleTextStyle: {
+    fontSize: vw(20),
   },
   imagestyle: {
     height: vh(205),
     width: '100%',
     resizeMode: 'cover',
-    // borderRadius: 30,
+    borderRadius: vh(15),
   },
   womenImgStyle: {
     height: vw(30),
