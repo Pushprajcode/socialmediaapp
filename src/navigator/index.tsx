@@ -6,22 +6,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {ToptabNavigator} from './toptabNavigator';
 import HeaderComponent from '@socialmedia/components/headerComponent';
 import YouTubePlayer from '@socialmedia/youtubePlayer';
+import {local_string} from '@socialmedia/utils/strings';
 
 export default function NavigatorScreen() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      {/* <StatusBar
-        // translucent
-        backgroundColor={'#5E8D48'}
-        barStyle={'dark-content'}
-      /> */}
       <Stack.Navigator
         initialRouteName={SCREEN_NAMES.ToptabNavigator}
         screenOptions={{}}>
         <Stack.Screen
           options={{
-            header: () => <HeaderComponent title={'hhjkhkh'} />,
+            header: () => <HeaderComponent title={local_string.Favorits} />,
           }}
           name={SCREEN_NAMES.ToptabNavigator}
           component={ToptabNavigator}

@@ -3,6 +3,7 @@ import Articles from '@socialmedia/articles';
 import Channels from '@socialmedia/channels';
 import {COLORS} from '@socialmedia/utils/colors';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
+import Videos from '@socialmedia/videolist';
 import Video from '@socialmedia/videolist';
 import YouTubePlayer from '@socialmedia/youtubePlayer';
 import React from 'react';
@@ -48,7 +49,7 @@ export function ToptabNavigator() {
         },
       })}>
       <Tab.Screen name={SCREEN_NAMES.channels} component={Channels} />
-      <Tab.Screen name={SCREEN_NAMES.Videos} component={Video} />
+      <Tab.Screen name={SCREEN_NAMES.Videos} component={Videos} />
       <Tab.Screen name={SCREEN_NAMES.Articles} component={Articles} />
     </Tab.Navigator>
   );

@@ -4,7 +4,7 @@ import {vh, vw} from '@socialmedia/utils/dimensions';
 import {mediaJson} from '@socialmedia/utils/dummyData';
 import {LocalImages} from '@socialmedia/utils/localImages';
 import {local_string} from '@socialmedia/utils/strings';
-export default function Video() {
+export default function Videos() {
   const listRender = ({item}: any) => {
     console.log('-------', item);
 

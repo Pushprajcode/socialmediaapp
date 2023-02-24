@@ -14,6 +14,7 @@ import CustomCard from '@socialmedia/components/customCard';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import CustomButton from '@socialmedia/components/customButton';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
+import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description} = route.params;
@@ -103,10 +104,12 @@ export default function YouTubePlayer({route}: any) {
   };
   return (
     <View style={styles.containerStyle}>
-      <View style={styles.videoContainerView}></View>
+      <View style={styles.videoContainerView}>
+        <VideoPlayerComponent />
+      </View>
       {/* {listHeader()} */}
-
       {/* <PlayerTitleComponent /> */}
+
       <FlatList
         ListHeaderComponent={listHeader}
         data={mediaJson}
