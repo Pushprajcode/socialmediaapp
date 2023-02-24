@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {vh, vw} from '@socialmedia/utils/dimensions';
+import {SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
 import {COLORS} from '@socialmedia/utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
@@ -42,16 +42,20 @@ export default function CustomCard(props: customcardType) {
         <Image source={{uri: image}} style={styles.imagestyle} />
         <View
           style={{
-            padding: 10,
+            padding: vh(19),
           }}>
           <Text style={styles.titleTextStyle}>{title}</Text>
           <View style={styles.viewNumber}>
             <Text>{viewNumber}</Text>
             <Text>{time}</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <Image style={styles.womenImgStyle} source={womenIcon} />
-            <Text>{subName}</Text>
+            <Text style={styles.subNameText}>{subName}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -63,8 +67,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: COLORS.white,
     borderColor: COLORS.white,
-    marginVertical: 10,
-    borderRadius: vw(10),
+    marginVertical: vh(10),
+    borderRadius: vw(17),
   },
   viewNumber: {
     flexDirection: 'row',
@@ -72,10 +76,10 @@ const styles = StyleSheet.create({
   },
   titleTextStyle: {
     fontSize: vw(20),
+    fontFamily: 'Poppins-Regular',
   },
   imagestyle: {
-    height: vh(205),
-    width: '100%',
+    height: SCREEN_WIDTH / 2,
     resizeMode: 'cover',
     borderRadius: vh(15),
   },
@@ -83,5 +87,9 @@ const styles = StyleSheet.create({
     height: vw(30),
     width: vw(30),
     borderRadius: vw(20),
+  },
+  subNameText: {
+    marginLeft: vh(10),
+    textAlign: 'center',
   },
 });

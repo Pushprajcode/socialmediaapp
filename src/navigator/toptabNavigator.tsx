@@ -14,9 +14,9 @@ const Tab = createMaterialTopTabNavigator();
 export function ToptabNavigator() {
   return (
     <Tab.Navigator
-      sceneContainerStyle={{backgroundColor: 'transparent'}}
+      // sceneContainerStyle={{backgroundColor: 'transparent'}}
       screenOptions={({route}) => ({
-        tabBarStyle: {backgroundColor: 'transparent'},
+        // tabBarStyle: {backgroundColor: 'transparent'},
         tabBarIndicatorStyle: {
           width: 0,
         },

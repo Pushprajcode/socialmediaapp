@@ -7,13 +7,13 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
-import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
-import {LocalImages} from '@socialmedia/utils/localImages';
-import {local_string} from '@socialmedia/utils/strings';
-import CustomButton from '@socialmedia/components/customButton';
 import {COLORS} from '@socialmedia/utils/colors';
+import {local_string} from '@socialmedia/utils/strings';
+import {LocalImages} from '@socialmedia/utils/localImages';
 import CustomCard from '@socialmedia/components/customCard';
+import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
+import CustomButton from '@socialmedia/components/customButton';
+import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description} = route.params;
@@ -54,12 +54,16 @@ export default function YouTubePlayer({route}: any) {
   const listHeader = () => {
     return (
       <View>
-        <Text>{title}</Text>
-        <Text>{viewNumber}</Text>
-        <Text>{time}</Text>
-        <Text numberOfLines={3} style={styles.discriptionStyle}>
-          {description}
-        </Text>
+        <View style={styles.headerContainerView}>
+          <Text style={styles.titleText}>{title}</Text>
+          <View style={{flexDirection: 'row', marginVertical: 10}}>
+            <Text>{viewNumber}</Text>
+            <Text>{time}</Text>
+          </View>
+          <Text numberOfLines={3} style={styles.discriptionStyle}>
+            {description}
+          </Text>
+        </View>
         <FlatList
           data={iconsData}
           renderItem={renderImageData}
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
   },
   videoContainerView: {
     height: 200,
-    backgroundColor: 'red',
+    backgroundColor: 'grey',
     width: '100%',
   },
   discriptionStyle: {},
@@ -174,4 +178,10 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     marginLeft: vh(10),
   },
+  titleText: {
+    color: COLORS.black,
+    fontSize: vw(18),
+    fontFamily: 'Poppins-Regular',
+  },
+  headerContainerView: {padding: 20},
 });
