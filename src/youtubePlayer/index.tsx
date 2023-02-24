@@ -15,12 +15,35 @@ import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import CustomButton from '@socialmedia/components/customButton';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
+import Share from 'react-native-share';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description} = route.params;
+
+  // console.log('kjkdjk');
+  const myCustomShare = async () => {
+    console.log('kjkdjk');
+    const shareOptions = {
+      message:
+        "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
+      // url: files.appLogo,
+      // urls: [files.image1, files.image2]
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch (error) {
+      console.log('Error => ', error);
+    }
+  };
+
   const renderImageData = ({item}: any) => {
     return (
-      <TouchableOpacity style={styles.iconrenderView} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.iconrenderView}
+        activeOpacity={0.7}
+        onPress={myCustomShare}>
         <Image
           resizeMode="contain"
           style={styles.iconsStyle}
@@ -188,3 +211,6 @@ const styles = StyleSheet.create({
   },
   headerContainerView: {padding: 20},
 });
+function options(options: any) {
+  throw new Error('Function not implemented.');
+}

@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import Video from 'react-native-video';
+import {vh, vw} from '@socialmedia/utils/dimensions';
+import {LocalImages} from '@socialmedia/utils/localImages';
 import TimerAndPauseComponent from './timerAndPauseComponent';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 export default function VideoPlayerComponent() {
-  console.log('vidoe fdnkdf');
   const [pause, setPaused] = useState<boolean>(true);
   return (
     <View style={{flex: 1}}>
@@ -20,13 +21,25 @@ export default function VideoPlayerComponent() {
         style={styles.backgroundVideo}
         resizeMode="cover"
         paused={pause}
+        fullscreenAutorotate={false}
+        // fullscreen={isFullScreen}
+        fullscreenOrientation={'all'}
       />
       <TimerAndPauseComponent
-        pause={pause}
+        // pause={pause}
         callback={() => {
           setPaused(!pause);
         }}
       />
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={{flexDirection: 'row-reverse'}}>
+        <Image
+          source={LocalImages.fullScreen}
+          style={styles.fullScreenIcon}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -39,5 +52,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     backgroundColor: 'grey',
+  },
+  fullScreenIcon: {
+    height: vw(25),
+    width: vw(25),
+    left: vw(10),
+    top: vh(15),
   },
 });

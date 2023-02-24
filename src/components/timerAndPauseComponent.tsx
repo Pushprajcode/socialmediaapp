@@ -4,14 +4,14 @@ import {LocalImages} from '@socialmedia/utils/localImages';
 import {vh, vw} from '@socialmedia/utils/dimensions';
 
 interface timerAndPauseComponentType {
-  pause: boolean;
+  //   pause: boolean;
   callback: Function;
 }
 export default function TimerAndPauseComponent(
   props: timerAndPauseComponentType,
 ) {
+  console.log('callback ------>', props.callback);
   const pause = props;
-  //   const [paused, setPaused] = useState(true);
   return (
     <View style={styles.containerStyle}>
       {/* <Text>timerAndPauseComponent</Text> */}
@@ -42,15 +42,20 @@ export default function TimerAndPauseComponent(
 
 const styles = StyleSheet.create({
   containerStyle: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
-    width: vw(370),
+    width: vw(200),
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: vh(90),
+    // alignItems: 'center',
+    // padding: vh(90),
+    // borderWidth: 1,
+    marginHorizontal: vw(30),
+    marginTop: vh(90),
+    marginLeft: vh(90),
   },
   iconStyle: {
     height: vw(30),
     width: vw(30),
+    alignItems: 'flex-end',
   },
 });
