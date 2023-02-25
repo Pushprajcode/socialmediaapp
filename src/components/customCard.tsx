@@ -7,12 +7,13 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
+import {normalize, SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
 import {COLORS} from '@socialmedia/utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
+import {LocalImages} from '@socialmedia/utils/localImages';
 
-interface customcardType {
+interface CustomCardType {
   numColumns?: any;
   title?: any;
   image: any;
@@ -23,12 +24,12 @@ interface customcardType {
   description?: string;
 }
 
-export default function CustomCard(props: customcardType) {
+export default function CustomCard(props: CustomCardType) {
   const {title, image, viewNumber, time, subName, womenIcon, description} =
     props;
   const navigation = useNavigation<any>();
-  console.log('--2364758690', title);
-  const onpressNavigator = () => {
+
+  const handleCardPress = () => {
     navigation.navigate(SCREEN_NAMES.youTubePlayer, {
       title: title,
       time: time,
@@ -37,30 +38,40 @@ export default function CustomCard(props: customcardType) {
     });
   };
   return (
-    <View style={styles.cardContainer}>
-      <TouchableOpacity activeOpacity={0.7} onPress={onpressNavigator}>
-        <Image source={{uri: image}} style={styles.imagestyle} />
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={handleCardPress}
+      style={styles.cardContainer}>
+      <View style={styles.imageContainerStyle}>
+        <Image source={{uri: image}} style={styles.imageStyle} />
+
+        <Image
+          style={styles.playIconStyle}
+          source={LocalImages.playIcon}
+          resizeMode={'contain'}
+        />
+        <Text style={styles.timerStyle}>{'70:40'}</Text>
+      </View>
+      <View
+        style={{
+          padding: vh(19),
+        }}>
+        <Text style={styles.titleTextStyle}>{title}</Text>
+        <View style={styles.viewNumber}>
+          <Text style={styles.viewNumberText}>{viewNumber}</Text>
+          <Text style={styles.dotText}>{'.'}</Text>
+          <Text style={styles.viewNumberText}>{time}</Text>
+        </View>
         <View
           style={{
-            padding: vh(19),
+            flexDirection: 'row',
+            alignItems: 'center',
           }}>
-          <Text style={styles.titleTextStyle}>{title}</Text>
-          <View style={styles.viewNumber}>
-            <Text style={styles.viewNumberText}>{viewNumber}</Text>
-            <Text style={styles.dotText}>{'.'}</Text>
-            <Text style={styles.viewNumberText}>{time}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Image style={styles.womenImgStyle} source={womenIcon} />
-            <Text style={styles.subNameText}>{subName}</Text>
-          </View>
+          <Image style={styles.womenImgStyle} source={womenIcon} />
+          <Text style={styles.subNameText}>{subName}</Text>
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -69,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderColor: COLORS.white,
     marginVertical: vh(10),
-    borderRadius: vw(17),
+    borderRadius: vw(15),
   },
   viewNumber: {
     flexDirection: 'row',
@@ -83,10 +94,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: COLORS.black,
   },
-  imagestyle: {
+  imageContainerStyle: {
     height: SCREEN_WIDTH / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageStyle: {
     resizeMode: 'cover',
-    borderRadius: vh(15),
+    height: '100%',
+    borderTopLeftRadius: normalize(15),
+    borderTopRightRadius: normalize(15),
+    width: '100%',
   },
   womenImgStyle: {
     height: vw(30),
@@ -100,14 +118,27 @@ const styles = StyleSheet.create({
   },
   viewNumberText: {
     textAlign: 'center',
-    // borderWidth: 1,
     color: COLORS.lightGrey,
   },
   dotText: {
     color: COLORS.lightGrey,
     fontSize: vw(10),
-    // borderWidth: 1,
     fontFamily: 'Poppins-Regular',
     textAlign: 'center',
+  },
+  playIconStyle: {
+    height: normalize(30),
+    width: normalize(30),
+    position: 'absolute',
+  },
+  timerStyle: {
+    position: 'absolute',
+    right: 10,
+    padding: 10,
+    backgroundColor: '#161b14',
+    color: COLORS.white,
+    fontSize: normalize(16),
+    borderRadius: normalize(10),
+    bottom: normalize(10),
   },
 });

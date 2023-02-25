@@ -16,4 +16,5 @@ export const SCREEN_NAMES = {
   Videos: 'Videos',
   Articles: 'Articles',
   youTubePlayer: 'youTubePlayer',
+  FullScreen: 'FullScreen',
 };

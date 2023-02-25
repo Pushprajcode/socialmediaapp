@@ -6,8 +6,6 @@ import {LocalImages} from '@socialmedia/utils/localImages';
 import {local_string} from '@socialmedia/utils/strings';
 export default function Videos() {
   const listRender = ({item}: any) => {
-    console.log('-------', item);
-
     return (
       <CustomCard
         image={item?.thumb}
@@ -22,7 +20,13 @@ export default function Videos() {
   };
   return (
     <View style={styles.containerStyle}>
-      <FlatList data={mediaJson} renderItem={listRender} />
+      <FlatList
+        data={mediaJson}
+        renderItem={listRender}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 }

@@ -10,7 +10,6 @@ interface timerAndPauseComponentType {
 export default function TimerAndPauseComponent(
   props: timerAndPauseComponentType,
 ) {
-  console.log('callback ------>', props.callback);
   const pause = props;
   return (
     <View style={styles.containerStyle}>

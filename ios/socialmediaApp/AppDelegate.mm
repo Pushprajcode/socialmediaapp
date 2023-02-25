@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-
+#import "Orientation.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -28,6 +28,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @implementation AppDelegate
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+ return [Orientation getOrientation];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -91,6 +95,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 }
 
+
 #if RCT_NEW_ARCH_ENABLED
 
 #pragma mark - RCTCxxBridgeDelegate
@@ -129,5 +134,6 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 
 #endif
+
 
 @end

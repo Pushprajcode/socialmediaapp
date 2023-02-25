@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Channels() {
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: 'red'}}>
       <Text>index</Text>
     </View>
   );

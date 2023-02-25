@@ -1,30 +1,36 @@
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StatusBar, StyleSheet} from 'react-native';
 import {SCREEN_NAMES} from './screenNmaes';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {ToptabNavigator} from './toptabNavigator';
+import YouTubePlayer from '@socialmedia/modules/youtubePlayer';
 import HeaderComponent from '@socialmedia/components/headerComponent';
-import YouTubePlayer from '@socialmedia/youtubePlayer';
-import {local_string} from '@socialmedia/utils/strings';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FullScreen from '@socialmedia/modules/youtubePlayer/fullScreen';
+import Home from '@socialmedia/modules/home';
 
 export default function NavigatorScreen() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
+      {/* <StatusBar hidden /> */}
+      <StatusBar
+        translucent={true}
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
       <Stack.Navigator
-        initialRouteName={SCREEN_NAMES.ToptabNavigator}
-        screenOptions={{}}>
-        <Stack.Screen
-          options={{
-            header: () => <HeaderComponent title={local_string.Favorits} />,
-          }}
-          name={SCREEN_NAMES.ToptabNavigator}
-          component={ToptabNavigator}
-        />
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name={'Home'} component={Home} />
         <Stack.Screen
           name={SCREEN_NAMES.youTubePlayer}
           component={YouTubePlayer}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.FullScreen}
+          component={FullScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import Video from 'react-native-video';
-import {vh, vw} from '@socialmedia/utils/dimensions';
+import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import {LocalImages} from '@socialmedia/utils/localImages';
 import TimerAndPauseComponent from './timerAndPauseComponent';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {COLORS} from '@socialmedia/utils/colors';
+import {useNavigation} from '@react-navigation/native';
+import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
 
 export default function VideoPlayerComponent() {
   const [pause, setPaused] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
   const [videotime, setVideoTime] = useState(0);
   const [refVideo, setRefVideo] = useState<any>('');
+  const navigation = useNavigation<any>();
 
   const getMinutesFromSeconds = (videoduration: number) => {
     const minutes = videoduration >= 60 ? Math.floor(videoduration / 60) : 0;
@@ -22,10 +25,22 @@ export default function VideoPlayerComponent() {
   };
   const OnProgressData = getMinutesFromSeconds(videotime);
   const progressTime = getMinutesFromSeconds(currentTime);
-  console.log('23564758967089', refVideo);
+  const uri = refVideo?.props?.source?.uri;
+
   // console.log('jdfjkdfjnksjh', OnProgressData);
   return (
     <View style={{flex: 1}}>
+      <View style={styles.topOptionView}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <Image style={styles.iconStyle} source={LocalImages.leftIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image style={styles.iconStyle} source={LocalImages.incrTime} />
+        </TouchableOpacity>
+      </View>
       <Video
         source={{
           uri: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -63,7 +78,7 @@ export default function VideoPlayerComponent() {
         value={currentTime}
         onValueChange={value => {
           setcurrentTime(value);
-          // console.log('---345678->', value);
+
           refVideo?.seek(value);
         }}
       />
@@ -74,7 +89,12 @@ export default function VideoPlayerComponent() {
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}
-        style={{flexDirection: 'row-reverse'}}>
+        style={{flexDirection: 'row-reverse'}}
+        onPress={() => {
+          navigation.navigate(SCREEN_NAMES.FullScreen, {
+            uri,
+          });
+        }}>
         <Image
           source={LocalImages.fullScreen}
           style={styles.fullScreenIcon}
@@ -99,5 +119,18 @@ const styles = StyleSheet.create({
     width: vw(22),
     // left: vw(10),
     // top: vh(30),
+  },
+  topOptionView: {
+    flexDirection: 'row',
+    zIndex: 1,
+    height: vh(50),
+    justifyContent: 'space-between',
+    paddingHorizontal: normalize(16),
+    alignItems: 'center',
+  },
+  iconStyle: {
+    height: vh(26),
+    width: vw(26),
+    tintColor: 'white',
   },
 });

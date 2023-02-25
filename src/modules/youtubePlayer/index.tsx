@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {COLORS} from '@socialmedia/utils/colors';
 import {local_string} from '@socialmedia/utils/strings';
 import {LocalImages} from '@socialmedia/utils/localImages';
@@ -16,34 +16,36 @@ import CustomButton from '@socialmedia/components/customButton';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
 import Share from 'react-native-share';
+import Orientation from 'react-native-orientation-locker';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import HeaderComponent from '@socialmedia/components/headerComponent';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description} = route.params;
+  const insets = useSafeAreaInsets();
+  useEffect(() => {
+    Orientation.lockToPortrait();
+  }, []);
 
-  // console.log('kjkdjk');
-  const myCustomShare = async () => {
-    console.log('kjkdjk');
-    const shareOptions = {
-      message:
-        "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
-      // url: files.appLogo,
-      // urls: [files.image1, files.image2]
-    };
+  // const myCustomShare = async () => {
+  //   const shareOptions = {
+  //     message:
+  //       "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
+  //     // url: files.appLogo,
+  //     // urls: [files.image1, files.image2]
+  //   };
 
-    try {
-      const ShareResponse = await Share.open(shareOptions);
-      console.log(JSON.stringify(ShareResponse));
-    } catch (error) {
-      console.log('Error => ', error);
-    }
-  };
-
+  //   try {
+  //     const ShareResponse = await Share.open(shareOptions);
+  //   } catch (error) {}
+  // };
   const renderImageData = ({item}: any) => {
     return (
       <TouchableOpacity
         style={styles.iconrenderView}
         activeOpacity={0.7}
-        onPress={myCustomShare}>
+        // onPress={myCustomShare}
+      >
         <Image
           resizeMode="contain"
           style={styles.iconsStyle}
@@ -78,7 +80,7 @@ export default function YouTubePlayer({route}: any) {
   const listHeader = () => {
     return (
       <View>
-        <View style={styles.headerContainerView}>
+        <View style={[styles.headerContainerView]}>
           <Text style={styles.titleText}>{title}</Text>
           <View style={{flexDirection: 'row', marginVertical: 10}}>
             <Text style={styles.viewNumberText}>{viewNumber}</Text>
@@ -112,8 +114,6 @@ export default function YouTubePlayer({route}: any) {
     );
   };
   const listRender = ({item}: any) => {
-    console.log('-------', item);
-
     return (
       <CustomCard
         image={item?.thumb}
@@ -127,8 +127,9 @@ export default function YouTubePlayer({route}: any) {
     );
   };
   return (
-    <View style={styles.containerStyle}>
+    <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
       <View style={styles.videoContainerView}>
+        {/* <HeaderComponent /> */}
         <VideoPlayerComponent />
       </View>
       {/* {listHeader()} */}
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     fontSize: vw(18),
     fontFamily: 'Poppins-Regular',
   },
-  headerContainerView: {padding: 20},
+  headerContainerView: {},
   viewNumberText: {
     textAlign: 'center',
     // borderWidth: 1,
