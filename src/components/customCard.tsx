@@ -46,8 +46,9 @@ export default function CustomCard(props: customcardType) {
           }}>
           <Text style={styles.titleTextStyle}>{title}</Text>
           <View style={styles.viewNumber}>
-            <Text>{viewNumber}</Text>
-            <Text>{time}</Text>
+            <Text style={styles.viewNumberText}>{viewNumber}</Text>
+            <Text style={styles.dotText}>{'.'}</Text>
+            <Text style={styles.viewNumberText}>{time}</Text>
           </View>
           <View
             style={{
@@ -72,11 +73,15 @@ const styles = StyleSheet.create({
   },
   viewNumber: {
     flexDirection: 'row',
-    marginVertical: vh(10),
+    marginVertical: vh(8),
+    // backgroundColor: 'red',
+    width: vw(150),
+    justifyContent: 'space-between',
   },
   titleTextStyle: {
     fontSize: vw(20),
     fontFamily: 'Poppins-Regular',
+    color: COLORS.black,
   },
   imagestyle: {
     height: SCREEN_WIDTH / 2,
@@ -90,6 +95,19 @@ const styles = StyleSheet.create({
   },
   subNameText: {
     marginLeft: vh(10),
+    textAlign: 'center',
+    color: COLORS.subText,
+  },
+  viewNumberText: {
+    textAlign: 'center',
+    // borderWidth: 1,
+    color: COLORS.lightGrey,
+  },
+  dotText: {
+    color: COLORS.lightGrey,
+    fontSize: vw(10),
+    // borderWidth: 1,
+    fontFamily: 'Poppins-Regular',
     textAlign: 'center',
   },
 });

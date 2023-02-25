@@ -49,7 +49,7 @@ export default function YouTubePlayer({route}: any) {
           style={styles.iconsStyle}
           source={item.icon}
         />
-        <Text>{item.labels}</Text>
+        <Text style={styles.labelsText}>{item.labels}</Text>
       </TouchableOpacity>
     );
   };
@@ -57,8 +57,8 @@ export default function YouTubePlayer({route}: any) {
     return (
       <View style={styles.commentsContainerView}>
         <View style={{flexDirection: 'row'}}>
-          <Text>{'DKJKJDSKJ'}</Text>
-          <Text>{'34'}</Text>
+          <Text style={{color: COLORS.black}}>{'DKJKJDSKJ'}</Text>
+          <Text style={{color: COLORS.black}}>{'34'}</Text>
         </View>
         <View
           style={{
@@ -81,8 +81,8 @@ export default function YouTubePlayer({route}: any) {
         <View style={styles.headerContainerView}>
           <Text style={styles.titleText}>{title}</Text>
           <View style={{flexDirection: 'row', marginVertical: 10}}>
-            <Text>{viewNumber}</Text>
-            <Text>{time}</Text>
+            <Text style={styles.viewNumberText}>{viewNumber}</Text>
+            <Text style={styles.viewNumberText}>{time}</Text>
           </View>
           <Text numberOfLines={3} style={styles.discriptionStyle}>
             {description}
@@ -93,6 +93,7 @@ export default function YouTubePlayer({route}: any) {
           renderItem={renderImageData}
           contentContainerStyle={styles.contentContainerStyle}
           horizontal
+          scrollEnabled={false}
         />
         <View style={styles.subcribeContainerView}>
           <View style={{flexDirection: 'row'}}>
@@ -101,7 +102,7 @@ export default function YouTubePlayer({route}: any) {
               <Text style={styles.gurujiText}>
                 {local_string.Technicalguruji}
               </Text>
-              <Text>{local_string.subcriber}</Text>
+              <Text style={styles.gurujiText}>{local_string.subcriber}</Text>
             </View>
           </View>
           <CustomButton title={local_string.subcribe} />
@@ -151,7 +152,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     width: '100%',
   },
-  discriptionStyle: {},
+  discriptionStyle: {
+    color: '#747374',
+  },
   shareView: {
     flexDirection: 'row',
     borderWidth: 1,
@@ -210,6 +213,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   headerContainerView: {padding: 20},
+  viewNumberText: {
+    textAlign: 'center',
+    // borderWidth: 1,
+    color: COLORS.lightGrey,
+  },
+  labelsText: {
+    color: COLORS.black,
+  },
 });
 function options(options: any) {
   throw new Error('Function not implemented.');

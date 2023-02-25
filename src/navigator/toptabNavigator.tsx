@@ -1,11 +1,12 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Articles from '@socialmedia/articles';
-import Channels from '@socialmedia/channels';
+// import Articles from '@socialmedia/modules/articles';
+// import Channels from '@socialmedia/modules/channels';
+import Channels from '@socialmedia/modules/channels';
+import Articles from '@socialmedia/modules/articles';
+import Videos from '@socialmedia/modules/videolist';
 import {COLORS} from '@socialmedia/utils/colors';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
-import Videos from '@socialmedia/videolist';
-import Video from '@socialmedia/videolist';
-import YouTubePlayer from '@socialmedia/youtubePlayer';
+
 import React from 'react';
 import {Text, View} from 'react-native';
 import {SCREEN_NAMES} from './screenNmaes';
@@ -27,7 +28,7 @@ export function ToptabNavigator() {
               style={{
                 backgroundColor: focused ? COLORS.tabbarColor : COLORS.white,
                 width: vw(100),
-                // alignItems: 'center',
+                alignItems: 'center',
                 justifyContent: 'center',
                 padding: vw(10),
                 borderRadius: vw(20),
