@@ -58,9 +58,14 @@ export default function YouTubePlayer({route}: any) {
   const comments = () => {
     return (
       <View style={styles.commentsContainerView}>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{color: COLORS.black}}>{'DKJKJDSKJ'}</Text>
+        <View style={styles.commentItemView}>
+          <Text style={{color: COLORS.black}}>{local_string.Comments}</Text>
           <Text style={{color: COLORS.black}}>{'34'}</Text>
+          <Image
+            source={LocalImages.expandIcon}
+            style={styles.expandIconStyle}
+            resizeMode="contain"
+          />
         </View>
         <View
           style={{
@@ -165,6 +170,7 @@ const styles = StyleSheet.create({
     height: vh(55),
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: vh(30),
   },
   iconsStyle: {
     height: vw(30),
@@ -213,15 +219,21 @@ const styles = StyleSheet.create({
     fontSize: vw(18),
     fontFamily: 'Poppins-Regular',
   },
-  headerContainerView: {},
+  headerContainerView: {
+    marginLeft: normalize(14),
+  },
   viewNumberText: {
     textAlign: 'center',
-    // borderWidth: 1,
     color: COLORS.lightGrey,
   },
   labelsText: {
     color: COLORS.black,
   },
+  expandIconStyle: {
+    height: vh(25),
+    width: vw(25),
+  },
+  commentItemView: {},
 });
 function options(options: any) {
   throw new Error('Function not implemented.');

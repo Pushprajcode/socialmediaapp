@@ -15,12 +15,15 @@ import {
 } from 'react-native';
 import {COLORS} from '@socialmedia/utils/colors';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
+import TimerAndPauseComponent from '@socialmedia/components/timerAndPauseComponent';
+import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
 
 const {height, width} = Dimensions.get('window');
 
 export default function FullScreeVideo({route}: any) {
   const [play, setPlay] = useState(true);
   const {uri} = route?.params;
+  console.log('6789', uri);
   //   const {callbackFn, index} = route.params;
 
   React.useEffect(() => {
@@ -68,10 +71,12 @@ export default function FullScreeVideo({route}: any) {
         }}>
         <Image source={LocalImages.leftIcon} style={styles.backButton} />
       </TouchableOpacity>
-      <View style={styles.buttonContainer}>
+      {/* <TimerAndPauseComponent pause={false} callback={undefined} /> */}
+      <VideoPlayerComponent />
+      {/* <View style={styles.buttonContainer}>
         <Image source={LocalImages.shareIcon} style={styles.button} />
         <Image source={LocalImages.moneyIcon} style={styles.button} />
-      </View>
+      </View> */}
     </View>
   );
 }

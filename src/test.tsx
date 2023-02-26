@@ -1,37 +1,21 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import Video from 'react-native-video';
-import {
-  normalize,
-  SCREEN_HEIGHT,
-  SCREEN_WIDTH,
-  vh,
-  vw,
-} from '@socialmedia/utils/dimensions';
-
-import {LocalImages} from '@socialmedia/utils/localImages';
-
-import {COLORS} from '@socialmedia/utils/colors';
-
+import {vh, vw} from './utils/dimensions';
+import {LocalImages} from './utils/localImages';
+import {COLORS} from './utils/colors';
+// import {useNavigation} from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
+import {SCREEN_NAMES} from './navigator/screenNmaes';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
-import Orientation from 'react-native-orientation-locker';
 
-export default function VideoPlayerComponent() {
+export default function Test() {
   const [pause, setPaused] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
   const [videotime, setVideoTime] = useState(0);
   const [refVideo, setRefVideo] = useState<any>('');
-  const [presentOrientation, setPresentOrientation] = useState('PORTRAIT');
   const videoRef = React.useRef<any>();
   const navigation = useNavigation<any>();
-  const uri = refVideo?.props?.source?.uri;
-  const [fullScreenStyle, setfullScreenStyle] = useState<any>({
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT / 3.6,
-  });
-  console.log('567890', refVideo?.props?.source?.uri);
   const handleDecr = () => {
     console.log('------->63478', refVideo.seek);
 
@@ -48,27 +32,6 @@ export default function VideoPlayerComponent() {
     setPaused(!pause);
   };
 
-  const onPressFullScreen = () => {
-    console.log('curreOtnsdf-->', presentOrientation);
-    if (presentOrientation.includes('LANDSCAPE')) {
-      Orientation.lockToPortrait();
-      setfullScreenStyle({
-        height: SCREEN_HEIGHT / 3,
-        width: '100%',
-      });
-    } else {
-      Orientation.lockToLandscape();
-      setfullScreenStyle({
-        top: normalize(0),
-        height: SCREEN_WIDTH,
-        width: SCREEN_HEIGHT,
-        paddingTop: normalize(20),
-      });
-    }
-
-    console.log('currrrr', presentOrientation);
-  };
-
   const getMinutesFromSeconds = (videoduration: number) => {
     const minutes = videoduration >= 60 ? Math.floor(videoduration / 60) : 0;
     const seconds = Math.floor(videoduration - minutes * 60);
@@ -79,7 +42,7 @@ export default function VideoPlayerComponent() {
   const OnProgressData = getMinutesFromSeconds(videotime);
   const progressTime = getMinutesFromSeconds(currentTime);
   return (
-    <View style={fullScreenStyle}>
+    <View style={{backgroundColor: 'white', flex: 1, marginTop: vh(50)}}>
       <Video
         source={{
           uri: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -123,9 +86,10 @@ export default function VideoPlayerComponent() {
         }}>
         <TouchableOpacity
           style={{position: 'absolute', left: 10, top: 10}}
-          onPress={() => {
-            navigation.goBack();
-          }}>
+          //   onPress={() => {
+          //     // navigation.goBack();
+          //   }}
+        >
           <Image style={styles.iconStyle} source={LocalImages.leftIcon} />
         </TouchableOpacity>
         <TouchableOpacity style={{position: 'absolute', right: 10, top: 10}}>
@@ -185,19 +149,12 @@ export default function VideoPlayerComponent() {
           {'/'}
           {OnProgressData}
         </Text>
-        <TouchableOpacity style={{}} onPress={onPressFullScreen}>
-          <Image
-            style={[
-              styles.iconStyle,
-              {
-                bottom:
-                  fullScreenStyle.height === SCREEN_WIDTH
-                    ? normalize(-60)
-                    : normalize(-30),
-              },
-            ]}
-            source={LocalImages.fullScreen}
-          />
+        <TouchableOpacity
+          style={{position: 'absolute', right: 10, bottom: 10}}
+          onPress={() => {
+            navigation.navigate(SCREEN_NAMES.FullScreen);
+          }}>
+          <Image style={styles.iconStyle} source={LocalImages.fullScreen} />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
@@ -206,9 +163,8 @@ export default function VideoPlayerComponent() {
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-    height: '100%',
+    height: vh(200),
     width: '100%',
-    backgroundColor: 'red',
   },
   containerStyle: {
     // flex: 1,

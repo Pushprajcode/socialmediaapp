@@ -10,4 +10,7 @@ export const LocalImages = {
   decrTime: require('../assets/images/dectime.png'),
   incrTime: require('../assets/images/inctime.png'),
   fullScreen: require('../assets/images/fullscreen.png'),
+  doticon: require('../assets/images/dots.png'),
+  pauseIcon: require('../assets/images/pause.png'),
+  expandIcon: require('../assets/images/expand.png'),
 };

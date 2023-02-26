@@ -7,6 +7,7 @@ import HeaderComponent from '@socialmedia/components/headerComponent';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FullScreen from '@socialmedia/modules/youtubePlayer/fullScreen';
 import Home from '@socialmedia/modules/home';
+import Test from '@socialmedia/test';
 
 export default function NavigatorScreen() {
   const Stack = createNativeStackNavigator();
