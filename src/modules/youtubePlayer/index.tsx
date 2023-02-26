@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS} from '@socialmedia/utils/colors';
 import {local_string} from '@socialmedia/utils/strings';
 import {LocalImages} from '@socialmedia/utils/localImages';
@@ -21,31 +21,34 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import HeaderComponent from '@socialmedia/components/headerComponent';
 
 export default function YouTubePlayer({route}: any) {
-  const {title, time, viewNumber, description} = route.params;
+  const {title, time, viewNumber, description, sources} = route.params;
+  const [switchSource, setswitchSource] = useState(sources[0]);
   const insets = useSafeAreaInsets();
   useEffect(() => {
     Orientation.lockToPortrait();
   }, []);
 
-  // const myCustomShare = async () => {
-  //   const shareOptions = {
-  //     message:
-  //       "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
-  //     // url: files.appLogo,
-  //     // urls: [files.image1, files.image2]
-  //   };
+  const onPressble = () => {
+    setswitchSource(sources[0]);
+  };
+  const myCustomShare = async () => {
+    const shareOptions = {
+      message:
+        "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
+      // url: files.appLogo,
+      // urls: [files.image1, files.image2]
+    };
 
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //   } catch (error) {}
-  // };
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+    } catch (error) {}
+  };
   const renderImageData = ({item}: any) => {
     return (
       <TouchableOpacity
         style={styles.iconrenderView}
         activeOpacity={0.7}
-        // onPress={myCustomShare}
-      >
+        onPress={item.labels == 'Share' ? myCustomShare : null}>
         <Image
           resizeMode="contain"
           style={styles.iconsStyle}
@@ -135,14 +138,16 @@ export default function YouTubePlayer({route}: any) {
     <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
       <View style={styles.videoContainerView}>
         {/* <HeaderComponent /> */}
-        <VideoPlayerComponent />
+        <VideoPlayerComponent source={sources} />
       </View>
       {/* {listHeader()} */}
       {/* <PlayerTitleComponent /> */}
 
       <FlatList
         ListHeaderComponent={listHeader}
-        data={mediaJson}
+        data={mediaJson
+          .filter(item => item.sources[0] != switchSource)
+          .splice(0, 6)}
         renderItem={listRender}
       />
     </View>
@@ -154,9 +159,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   videoContainerView: {
-    height: 200,
-    backgroundColor: 'grey',
-    width: '100%',
+    // height: 200,
+    // backgroundColor: 'grey',
+    // width: '100%',
   },
   discriptionStyle: {
     color: '#747374',

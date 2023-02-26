@@ -9,20 +9,25 @@ import {
   vw,
 } from '@socialmedia/utils/dimensions';
 
-import {LocalImages} from '@socialmedia/utils/localImages';
-
 import {COLORS} from '@socialmedia/utils/colors';
 
 import Slider from '@react-native-community/slider';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
+import {LocalImages} from '@socialmedia/utils/localImages';
 import Orientation from 'react-native-orientation-locker';
+interface VideoPlayerComponentType {
+  sources: any;
+}
 
-export default function VideoPlayerComponent() {
+export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
+  console.log('source', props);
+  const {sources} = props;
   const [pause, setPaused] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
   const [videotime, setVideoTime] = useState(0);
   const [refVideo, setRefVideo] = useState<any>('');
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [presentOrientation, setPresentOrientation] = useState('PORTRAIT');
   const videoRef = React.useRef<any>();
   const navigation = useNavigation<any>();
@@ -49,6 +54,7 @@ export default function VideoPlayerComponent() {
   };
 
   const onPressFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
     console.log('curreOtnsdf-->', presentOrientation);
     if (presentOrientation.includes('LANDSCAPE')) {
       Orientation.lockToPortrait();
@@ -100,7 +106,7 @@ export default function VideoPlayerComponent() {
         style={styles.backgroundVideo}
         // resizeMode="cover"
         paused={pause}
-        fullscreenAutorotate={false}
+        // fullscreenAutorotate={false}
         ref={reference => setRefVideo(reference)}
         // fullscreen={isFullScreen}
         fullscreenOrientation={'all'}
@@ -110,61 +116,103 @@ export default function VideoPlayerComponent() {
         onLoad={obj => setVideoTime(obj.duration)}
       />
 
-      <TouchableOpacity
+      <View
         style={{
           height: vh(200),
           width: '100%',
-          //   backgroundColor: 'red',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-evenly',
-          //   flex: 1,
+          // backgroundColor: 'red',
+          // flexDirection: 'row',
+          // alignItems: 'center',
+          // justifyContent: 'space-evenly',
           position: 'absolute',
         }}>
-        <TouchableOpacity
-          style={{position: 'absolute', left: 10, top: 10}}
-          onPress={() => {
-            navigation.goBack();
+        <View
+          style={{
+            flexDirection: 'row',
+            borderWidth: 1,
+            justifyContent: 'space-between',
+            padding: 10,
           }}>
-          <Image style={styles.iconStyle} source={LocalImages.leftIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={{position: 'absolute', right: 10, top: 10}}>
-          <Image style={styles.iconStyle} source={LocalImages.doticon} />
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7} onPress={handleDecr}>
-          <Image
-            source={LocalImages.decrTime}
-            resizeMode="contain"
-            style={styles.iconStyle}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          //    onPress={props.callback}
-          onPress={handlePausePlay}>
-          {pause ? (
+          <TouchableOpacity
+            onPress={() => {
+              if (fullScreenStyle.height === SCREEN_WIDTH) {
+                Orientation.lockToPortrait();
+                setfullScreenStyle({
+                  height: SCREEN_HEIGHT / 3,
+                  width: '100%',
+                });
+              } else {
+                navigation.goBack();
+              }
+            }}>
+            <Image style={styles.iconStyle} source={LocalImages.leftIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={{}}>
+            <Image style={styles.iconStyle} source={LocalImages.doticon} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            // flexDirection: 'row',
+            // justifyContent: 'center',
+            borderWidth: 1,
+            paddingHorizontal: 5,
+            // marginTop: '7%',
+            top:
+              fullScreenStyle.height === SCREEN_WIDTH
+                ? SCREEN_WIDTH / 1.9
+                : '50%',
+            flexDirection: 'row',
+            // alignItems: 'center',
+            justifyContent: 'space-around',
+            // backgroundColor: 'red',
+            alignSelf: 'center',
+            position: 'absolute',
+          }}>
+          <TouchableOpacity activeOpacity={0.7} onPress={handleDecr}>
             <Image
-              source={LocalImages.playIcon}
+              source={LocalImages.decrTime}
               resizeMode="contain"
               style={styles.iconStyle}
             />
-          ) : (
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{marginHorizontal: normalize(30)}}
+            activeOpacity={0.7}
+            //    onPress={props.callback}
+            onPress={handlePausePlay}>
+            {pause ? (
+              <Image
+                source={LocalImages.playIcon}
+                resizeMode="contain"
+                style={styles.iconStyle}
+              />
+            ) : (
+              <Image
+                source={LocalImages.pauseIcon}
+                resizeMode="contain"
+                style={styles.iconStyle}
+              />
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7} onPress={handleInc}>
             <Image
-              source={LocalImages.pauseIcon}
+              source={LocalImages.incrTime}
               resizeMode="contain"
               style={styles.iconStyle}
             />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7} onPress={handleInc}>
-          <Image
-            source={LocalImages.incrTime}
-            resizeMode="contain"
-            style={styles.iconStyle}
-          />
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
         <Slider
-          style={styles.sliderContainerStyle}
+          style={[
+            styles.sliderContainerStyle,
+            {
+              top:
+                fullScreenStyle.height === SCREEN_WIDTH
+                  ? normalize(SCREEN_WIDTH - SCREEN_WIDTH * 0.28)
+                  : normalize(fullScreenStyle.height - 70),
+            },
+          ]}
           minimumTrackTintColor={COLORS.tabbarColor}
           maximumTrackTintColor={COLORS.white}
           minimumValue={0}
@@ -180,26 +228,43 @@ export default function VideoPlayerComponent() {
           activeOpacity={0.7}
           // style={{flexDirection: 'row'}}
         ></TouchableOpacity>
-        <Text style={styles.timeText}>
-          {progressTime}
-          {'/'}
-          {OnProgressData}
-        </Text>
-        <TouchableOpacity style={{}} onPress={onPressFullScreen}>
-          <Image
-            style={[
-              styles.iconStyle,
-              {
-                bottom:
-                  fullScreenStyle.height === SCREEN_WIDTH
-                    ? normalize(-60)
-                    : normalize(-30),
-              },
-            ]}
-            source={LocalImages.fullScreen}
-          />
-        </TouchableOpacity>
-      </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderWidth: 1,
+            justifyContent: 'space-between',
+            // backgroundColor: 'red',
+            alignItems: 'center',
+            // padding: 10,
+            // bottom: 0,
+            position: 'absolute',
+            top:
+              fullScreenStyle.height === SCREEN_WIDTH
+                ? normalize(SCREEN_WIDTH - SCREEN_WIDTH * 0.2)
+                : normalize(fullScreenStyle.height - 40),
+            width: '100%',
+          }}>
+          <Text style={styles.timeText}>
+            {progressTime}
+            {'/'}
+            {OnProgressData}
+          </Text>
+          <TouchableOpacity style={{}} onPress={onPressFullScreen}>
+            <Image
+              style={[
+                styles.iconStyle,
+                {
+                  // bottom:
+                  //   fullScreenStyle.height === SCREEN_WIDTH
+                  //     ? normalize(-60)
+                  //     : normalize(-30),
+                },
+              ]}
+              source={LocalImages.fullScreen}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
@@ -208,7 +273,7 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   containerStyle: {
     // flex: 1,
@@ -226,13 +291,13 @@ const styles = StyleSheet.create({
     height: vw(30),
     width: vw(30),
     alignItems: 'flex-end',
+    tintColor: COLORS.white,
   },
   sliderContainerStyle: {
     width: '90%',
     position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: vw(20),
+    marginHorizontal: '5%',
+    // backgroundColor: 'red',
   },
   timeText: {
     color: COLORS.white,

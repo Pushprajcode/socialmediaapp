@@ -22,11 +22,20 @@ interface CustomCardType {
   womenIcon: any;
   subName?: string;
   description?: string;
+  sources?: any;
 }
 
 export default function CustomCard(props: CustomCardType) {
-  const {title, image, viewNumber, time, subName, womenIcon, description} =
-    props;
+  const {
+    title,
+    image,
+    viewNumber,
+    time,
+    subName,
+    womenIcon,
+    description,
+    sources,
+  } = props;
   const navigation = useNavigation<any>();
 
   const handleCardPress = () => {
@@ -35,6 +44,7 @@ export default function CustomCard(props: CustomCardType) {
       time: time,
       viewNumber: viewNumber,
       description: description,
+      sources: sources,
     });
   };
   return (
