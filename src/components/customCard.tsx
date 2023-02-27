@@ -1,15 +1,16 @@
 import React from 'react';
 import COLORS from '@socialmedia/utils/colors';
+import local_string from '@socialmedia/utils/strings';
 import {useNavigation} from '@react-navigation/native';
 import LocalImages from '@socialmedia/utils/localImages';
 import SCREEN_NAMES from '@socialmedia/navigator/screenNmaes';
-import {normalize, SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {normalize, SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
 
 interface CustomCardType {
-  numColumns?: any;
-  title?: any;
-  image: any;
+  numColumns?: Number;
+  title?: string;
+  image: string;
   viewNumber: string;
   time: string;
   womenIcon: any;
@@ -32,6 +33,7 @@ export default function CustomCard(props: CustomCardType) {
   const navigation = useNavigation<any>();
 
   const handleCardPress = () => {
+    console.log('sourdes here ', sources);
     navigation.navigate(SCREEN_NAMES.youTubePlayer, {
       title: title,
       time: time,
@@ -46,14 +48,18 @@ export default function CustomCard(props: CustomCardType) {
       onPress={handleCardPress}
       style={styles.cardContainer}>
       <View style={styles.imageContainerStyle}>
-        <Image source={{uri: image}} style={styles.imageStyle} />
+        <Image
+          resizeMode="contain"
+          source={{uri: image}}
+          style={styles.imageStyle}
+        />
 
         <Image
           style={styles.playIconStyle}
           source={LocalImages.playIcon}
           resizeMode={'contain'}
         />
-        <Text style={styles.timerStyle}>{'70:40'}</Text>
+        <Text style={styles.timerStyle}>{local_string.time}</Text>
       </View>
       <View style={styles.titleContainerView}>
         <Text style={styles.titleTextStyle}>{title}</Text>
@@ -63,7 +69,11 @@ export default function CustomCard(props: CustomCardType) {
           <Text style={styles.viewNumberText}>{time}</Text>
         </View>
         <View style={styles.womenContainerView}>
-          <Image style={styles.womenImgStyle} source={womenIcon} />
+          <Image
+            style={styles.womenImgStyle}
+            source={womenIcon}
+            resizeMode="contain"
+          />
           <Text style={styles.subNameText}>{subName}</Text>
         </View>
       </View>
@@ -81,7 +91,8 @@ const styles = StyleSheet.create({
   viewNumber: {
     flexDirection: 'row',
     marginVertical: vh(8),
-    width: vw(150),
+    width: 145,
+    aspectRatio: 140 / 20,
     justifyContent: 'space-between',
   },
   titleTextStyle: {
@@ -128,13 +139,14 @@ const styles = StyleSheet.create({
   },
   timerStyle: {
     position: 'absolute',
-    right: 10,
-    padding: 10,
-    backgroundColor: '#161b14',
+    right: vh(10),
+    padding: vh(7),
+    backgroundColor: COLORS.cardColor,
     color: COLORS.white,
     fontSize: normalize(16),
     borderRadius: normalize(10),
     bottom: normalize(10),
+    opacity: 0.9,
   },
   titleContainerView: {
     padding: vh(19),

@@ -8,7 +8,6 @@ import {
   View,
   ViewStyle,
   StyleSheet,
-  Text,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -21,13 +20,13 @@ const GREY = 'rgb(234, 234, 234)';
 const Shimmering = ({colors, gradientStyle, wrapperStyle}: ShimmeringType) => {
   const shimmeringAnimatedValue = useRef(new Animated.Value(0)).current;
   const [viewWidth, setViewWidth] = useState(-1);
-  const gradientColors = [GREY, '#fff', GREY];
+  const gradientColors = [GREY, COLORS.lightGrey, GREY];
 
   const ShimmringAnimation = Animated.loop(
     Animated.timing(shimmeringAnimatedValue, {
       useNativeDriver: false,
       delay: 1200,
-      duration: 1000,
+      duration: 2000,
       toValue: 1,
     }),
   );
@@ -53,9 +52,8 @@ const Shimmering = ({colors, gradientStyle, wrapperStyle}: ShimmeringType) => {
     <View
       style={{
         width: wrapperStyle?.width ?? width,
-        height: wrapperStyle?.height ?? 200,
+        height: wrapperStyle?.height ?? 400,
       }}>
-      <Text>{'DJKJKDFJKFD'}</Text>
       <View
         style={[styles.container, loadingStyle, wrapperStyle]}
         onLayout={event => setViewWidth(event.nativeEvent.layout.width)}>
@@ -69,8 +67,8 @@ const Shimmering = ({colors, gradientStyle, wrapperStyle}: ShimmeringType) => {
           ]}>
           <LinearGradient
             colors={colors || gradientColors}
-            start={{x: 0.3, y: 0.2}}
-            end={{x: 0.8, y: 0.5}}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
             style={{flex: 1}}
           />
         </Animated.View>
@@ -82,11 +80,11 @@ const Shimmering = ({colors, gradientStyle, wrapperStyle}: ShimmeringType) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    bottom: -20,
+    // bottom: -20,
     backgroundColor: COLORS.white,
     borderColor: COLORS.white,
     marginVertical: vh(10),
-    borderRadius: vw(15),
+    borderRadius: vw(20),
   },
 });
 

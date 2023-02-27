@@ -9,33 +9,29 @@ import {
 import Share from 'react-native-share';
 import COLORS from '@socialmedia/utils/colors';
 import React, {useEffect, useState} from 'react';
+import {vh, vw} from '@socialmedia/utils/dimensions';
 import local_string from '@socialmedia/utils/strings';
 import LocalImages from '@socialmedia/utils/localImages';
 import Orientation from 'react-native-orientation-locker';
 import CustomCard from '@socialmedia/components/customCard';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import CustomButton from '@socialmedia/components/customButton';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
 
 export default function YouTubePlayer({route}: any) {
+  const insets = useSafeAreaInsets();
   const {title, time, viewNumber, description, sources} = route.params;
   const [switchSource, setswitchSource] = useState(sources[0]);
-  const insets = useSafeAreaInsets();
   useEffect(() => {
     Orientation.lockToPortrait();
   }, []);
 
-  const onPressble = () => {
-    setswitchSource(sources[0]);
-  };
   const myCustomShare = async () => {
     const shareOptions = {
       message:
         "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
     };
-
     try {
       const ShareResponse = await Share.open(shareOptions);
     } catch (error) {}
@@ -45,13 +41,13 @@ export default function YouTubePlayer({route}: any) {
       <TouchableOpacity
         style={styles.iconrenderView}
         activeOpacity={0.7}
-        onPress={item.labels == 'Share' ? myCustomShare : null}>
+        onPress={item?.labels == 'Share' ? myCustomShare : null}>
         <Image
           resizeMode="contain"
           style={styles.iconsStyle}
-          source={item.icon}
+          source={item?.icon}
         />
-        <Text style={styles.labelsText}>{item.labels}</Text>
+        <Text style={styles.labelsText}>{item?.labels}</Text>
       </TouchableOpacity>
     );
   };
@@ -59,23 +55,23 @@ export default function YouTubePlayer({route}: any) {
     return (
       <View style={styles.commentsContainerView}>
         <View style={styles.commentItemView}>
-          <Text style={{color: COLORS.black}}>{local_string.Comments}</Text>
-          <Text style={{color: COLORS.black}}>{'34'}</Text>
-          <Image
-            source={LocalImages.expandIcon}
-            style={styles.expandIconStyle}
-            resizeMode="contain"
-          />
+          <View style={styles.commentView}>
+            <Text style={styles.commentText}>{local_string.Comments}</Text>
+            <Text style={styles.numberText}>{'34'}</Text>
+          </View>
+          <TouchableOpacity>
+            <Image
+              source={LocalImages.expandIcon}
+              style={styles.expandIconStyle}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: vh(16),
-          }}>
+
+        <View style={styles.subcribenoView}>
           <Image source={LocalImages.womenIcon} style={styles.iconImage} />
           <Text style={styles.commentsdiscText}>
-            {'DIJKFDKFSDJKSFDJKFDSJKdkdfskjfdsjkdfhkfd'}
+            {local_string.CommentsSection}
           </Text>
         </View>
       </View>
@@ -87,7 +83,7 @@ export default function YouTubePlayer({route}: any) {
       <View>
         <View style={[styles.headerContainerView]}>
           <Text style={styles.titleText}>{title}</Text>
-          <View style={{flexDirection: 'row', marginVertical: 10}}>
+          <View style={styles.viewnoTimeView}>
             <Text style={styles.viewNumberText}>{viewNumber}</Text>
             <Text style={styles.viewNumberText}>{time}</Text>
           </View>
@@ -119,29 +115,36 @@ export default function YouTubePlayer({route}: any) {
     );
   };
   const listRender = ({item}: any) => {
+    console.log(item);
     return (
-      <CustomCard
-        image={item?.thumb}
-        title={item.title}
-        viewNumber={'94k views '}
-        time={'3 days ago'}
-        womenIcon={LocalImages.womenIcon}
-        subName={local_string.split}
-        description={item?.description}
-      />
+      <View style={styles.cardContainerView}>
+        <CustomCard
+          image={item?.thumb}
+          title={item?.title}
+          viewNumber={local_string.noView}
+          time={local_string.days}
+          womenIcon={LocalImages.womenIcon}
+          subName={local_string.split}
+          description={item?.description}
+          sources={item?.sources}
+        />
+      </View>
     );
+  };
+  const handleExtractor = (item: any, index: any) => {
+    return index.toString();
   };
   return (
     <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
-      <View style={styles.videoContainerView}>
-        <VideoPlayerComponent source={sources} />
-      </View>
+      <VideoPlayerComponent source={sources} />
       <FlatList
         ListHeaderComponent={listHeader}
         data={mediaJson
           .filter(item => item.sources[0] != switchSource)
           .splice(0, 6)}
         renderItem={listRender}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={handleExtractor}
       />
     </View>
   );
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
   },
   videoContainerView: {},
   discriptionStyle: {
-    color: '#747374',
+    color: COLORS.grey,
   },
   shareView: {
     flexDirection: 'row',
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
   subcribeContainerView: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: normalize(10),
+    paddingHorizontal: vw(10),
     justifyContent: 'space-between',
     borderTopWidth: 1.5,
     borderTopColor: COLORS.darkGrey,
@@ -214,7 +217,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   headerContainerView: {
-    marginLeft: normalize(14),
+    padding: vw(12),
   },
   viewNumberText: {
     textAlign: 'center',
@@ -224,11 +227,22 @@ const styles = StyleSheet.create({
     color: COLORS.black,
   },
   expandIconStyle: {
-    height: vh(25),
-    width: vw(25),
+    height: vw(20),
+    width: vw(20),
   },
-  commentItemView: {},
+  commentItemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  commentText: {color: COLORS.black},
+  numberText: {color: COLORS.black, marginLeft: vw(10)},
+  cardContainerView: {marginHorizontal: vw(10)},
+  subcribenoView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: vh(16),
+  },
+  commentView: {flexDirection: 'row'},
+  viewnoTimeView: {flexDirection: 'row', marginVertical: 10},
 });
-function options(options: any) {
-  throw new Error('Function not implemented.');
-}

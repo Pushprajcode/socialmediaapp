@@ -14,13 +14,14 @@ export function ToptabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
+        tabBarPressColor: COLORS.white,
         tabBarStyle: {
           paddingTop: normalize(14),
-          marginHorizontal: normalize(20),
         },
         tabBarIndicatorStyle: {
           width: 0,
         },
+
         tabBarLabel: ({focused}) => {
           return (
             <View
