@@ -1,7 +1,7 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import COLORS from '@socialmedia/utils/colors';
 import {vh, vw} from '@socialmedia/utils/dimensions';
-import {COLORS} from '@socialmedia/utils/colors';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 interface customButtonType {
   title?: any;
   buttonContainerStyle?: any;

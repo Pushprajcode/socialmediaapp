@@ -1,4 +1,4 @@
-export const COLORS = {
+const COLORS = {
   white: '#ffff',
   black: '#000000',
   grey: '#797979',
@@ -7,4 +7,6 @@ export const COLORS = {
   tabbarColor: '#50E2E1',
   lightGrey: '#8e8f8f',
   subText: '#868686',
+  videoBackgroudColor: '#e7f2f1',
 };
+export default COLORS;

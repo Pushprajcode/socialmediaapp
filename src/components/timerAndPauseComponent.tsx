@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import {LocalImages} from '@socialmedia/utils/localImages';
+import LocalImages from '@socialmedia/utils/localImages';
 import {vh, vw} from '@socialmedia/utils/dimensions';
 
 interface timerAndPauseComponentType {

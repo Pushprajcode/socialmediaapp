@@ -6,19 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Share from 'react-native-share';
+import COLORS from '@socialmedia/utils/colors';
 import React, {useEffect, useState} from 'react';
-import {COLORS} from '@socialmedia/utils/colors';
-import {local_string} from '@socialmedia/utils/strings';
-import {LocalImages} from '@socialmedia/utils/localImages';
+import local_string from '@socialmedia/utils/strings';
+import LocalImages from '@socialmedia/utils/localImages';
+import Orientation from 'react-native-orientation-locker';
 import CustomCard from '@socialmedia/components/customCard';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import CustomButton from '@socialmedia/components/customButton';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
-import Share from 'react-native-share';
-import Orientation from 'react-native-orientation-locker';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import HeaderComponent from '@socialmedia/components/headerComponent';
 
 export default function YouTubePlayer({route}: any) {
   const {title, time, viewNumber, description, sources} = route.params;
@@ -35,8 +34,6 @@ export default function YouTubePlayer({route}: any) {
     const shareOptions = {
       message:
         "Order your next meal from FoodFinder App. I've already ordered more than 10 meals on it.",
-      // url: files.appLogo,
-      // urls: [files.image1, files.image2]
     };
 
     try {
@@ -137,12 +134,8 @@ export default function YouTubePlayer({route}: any) {
   return (
     <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
       <View style={styles.videoContainerView}>
-        {/* <HeaderComponent /> */}
         <VideoPlayerComponent source={sources} />
       </View>
-      {/* {listHeader()} */}
-      {/* <PlayerTitleComponent /> */}
-
       <FlatList
         ListHeaderComponent={listHeader}
         data={mediaJson
@@ -158,11 +151,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
   },
-  videoContainerView: {
-    // height: 200,
-    // backgroundColor: 'grey',
-    // width: '100%',
-  },
+  videoContainerView: {},
   discriptionStyle: {
     color: '#747374',
   },

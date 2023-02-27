@@ -1,17 +1,9 @@
-import {
-  Image,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import {useNavigation} from '@react-navigation/native';
-import {LocalImages} from '@socialmedia/utils/localImages';
-import {COLORS} from '@socialmedia/utils/colors';
+import LocalImages from '@socialmedia/utils/localImages';
+import COLORS from '@socialmedia/utils/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface propsheaderComponent {

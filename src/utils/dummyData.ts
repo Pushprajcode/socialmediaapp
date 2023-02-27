@@ -1,4 +1,4 @@
-import {LocalImages} from './localImages';
+import LocalImages from './localImages';
 
 export const mediaJson = [
   {

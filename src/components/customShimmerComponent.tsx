@@ -1,4 +1,4 @@
-import {COLORS} from '@socialmedia/utils/colors';
+import COLORS from '@socialmedia/utils/colors';
 import {vh, vw} from '@socialmedia/utils/dimensions';
 import React, {useState, useEffect, useRef} from 'react';
 import {
@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-
 import LinearGradient from 'react-native-linear-gradient';
 
 interface ShimmeringType {

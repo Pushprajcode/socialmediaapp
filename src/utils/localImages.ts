@@ -1,4 +1,4 @@
-export const LocalImages = {
+const LocalImages = {
   leftIcon: require('../assets/images/arrow.png'),
   womenIcon: require('../assets/images/womanicon.png'),
   likeIcon: require('../assets/images/like.png'),
@@ -14,3 +14,4 @@ export const LocalImages = {
   pauseIcon: require('../assets/images/pause.png'),
   expandIcon: require('../assets/images/expand.png'),
 };
+export default LocalImages;

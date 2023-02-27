@@ -1,11 +1,12 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import CustomCard from '@socialmedia/components/customCard';
-import {vh, vw} from '@socialmedia/utils/dimensions';
-import {mediaJson} from '@socialmedia/utils/dummyData';
-import {LocalImages} from '@socialmedia/utils/localImages';
-import {local_string} from '@socialmedia/utils/strings';
 import {useEffect, useState} from 'react';
+import {vh, vw} from '@socialmedia/utils/dimensions';
+import local_string from '@socialmedia/utils/strings';
+import {mediaJson} from '@socialmedia/utils/dummyData';
+import {FlatList, StyleSheet, View} from 'react-native';
+import LocalImages from '@socialmedia/utils/localImages';
+import CustomCard from '@socialmedia/components/customCard';
 import Shimmering from '@socialmedia/components/customShimmerComponent';
+import COLORS from '@socialmedia/utils/colors';
 export default function Videos() {
   const [load, setLoad] = useState(true);
   useEffect(() => {
@@ -14,10 +15,6 @@ export default function Videos() {
     }, 2000);
   }, []);
   const listRender = ({item}: any) => {
-    console.log('------>', item);
-    // if (item) {
-    //   setLoad(false);
-    // }
     return (
       <>
         {load ? (
@@ -53,7 +50,7 @@ export default function Videos() {
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
-    backgroundColor: '#e7f2f1',
+    backgroundColor: COLORS.videoBackgroudColor,
     padding: vh(20),
   },
 });

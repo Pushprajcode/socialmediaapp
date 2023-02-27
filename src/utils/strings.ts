@@ -1,4 +1,4 @@
-export const local_string = {
+const local_string = {
   split: 'Split',
   Favorits: 'Favorites',
   Technicalguruji: 'Technical Guruji',
@@ -7,3 +7,4 @@ export const local_string = {
   Comments: 'Comments',
   Similar_Videos: 'Similar Videos',
 };
+export default local_string;

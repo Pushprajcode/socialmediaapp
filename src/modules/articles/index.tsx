@@ -4,7 +4,7 @@ import React from 'react';
 export default function Articles() {
   return (
     <View>
-      <Text>{'jkfdhjlfdhlkdfhdfbhjfadsj'}</Text>
+      <Text>{'react native'}</Text>
     </View>
   );
 }

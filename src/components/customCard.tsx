@@ -1,17 +1,10 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import React from 'react';
-import {normalize, SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
-import {COLORS} from '@socialmedia/utils/colors';
+import COLORS from '@socialmedia/utils/colors';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
-import {LocalImages} from '@socialmedia/utils/localImages';
+import LocalImages from '@socialmedia/utils/localImages';
+import SCREEN_NAMES from '@socialmedia/navigator/screenNmaes';
+import {normalize, SCREEN_WIDTH, vh, vw} from '@socialmedia/utils/dimensions';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 interface CustomCardType {
   numColumns?: any;
@@ -62,21 +55,14 @@ export default function CustomCard(props: CustomCardType) {
         />
         <Text style={styles.timerStyle}>{'70:40'}</Text>
       </View>
-      <View
-        style={{
-          padding: vh(19),
-        }}>
+      <View style={styles.titleContainerView}>
         <Text style={styles.titleTextStyle}>{title}</Text>
         <View style={styles.viewNumber}>
           <Text style={styles.viewNumberText}>{viewNumber}</Text>
           <Text style={styles.dotText}>{'.'}</Text>
           <Text style={styles.viewNumberText}>{time}</Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+        <View style={styles.womenContainerView}>
           <Image style={styles.womenImgStyle} source={womenIcon} />
           <Text style={styles.subNameText}>{subName}</Text>
         </View>
@@ -95,7 +81,6 @@ const styles = StyleSheet.create({
   viewNumber: {
     flexDirection: 'row',
     marginVertical: vh(8),
-    // backgroundColor: 'red',
     width: vw(150),
     justifyContent: 'space-between',
   },
@@ -150,5 +135,12 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     borderRadius: normalize(10),
     bottom: normalize(10),
+  },
+  titleContainerView: {
+    padding: vh(19),
+  },
+  womenContainerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

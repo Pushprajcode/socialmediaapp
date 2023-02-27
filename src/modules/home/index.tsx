@@ -1,9 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import COLORS from '@socialmedia/utils/colors';
+import local_string from '@socialmedia/utils/strings';
 import HeaderComponent from '@socialmedia/components/headerComponent';
-import {local_string} from '@socialmedia/utils/strings';
 import {ToptabNavigator} from '@socialmedia/navigator/toptabNavigator';
-import {COLORS} from '@socialmedia/utils/colors';
 
 export default function Home() {
   return (

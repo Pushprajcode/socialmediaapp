@@ -1,20 +1,10 @@
-export const SCREEN_NAMES = {
-  splash: 'SplashScreen',
-  signup: 'SignUp',
-  login: 'LogIn',
-  profile: 'Profile',
-  counter: 'Counter',
+const SCREEN_NAMES = {
   home: 'Home',
-  mytab: 'MyTabs',
-  category: 'Category',
-  Like: 'Like',
   VideoList: 'VideoList',
   ToptabNavigator: 'ToptabNavigator',
-  Location: 'Location',
-  User: 'User',
   channels: 'Channels',
   Videos: 'Videos',
   Articles: 'Articles',
   youTubePlayer: 'youTubePlayer',
-  FullScreen: 'FullScreen',
 };
+export default SCREEN_NAMES;

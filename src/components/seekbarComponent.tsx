@@ -2,9 +2,9 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Slider from '@react-native-community/slider';
 import React from 'react';
 import {normalize, vw} from '@socialmedia/utils/dimensions';
-import {COLORS} from '@socialmedia/utils/colors';
+import COLORS from '@socialmedia/utils/colors';
 import {LocalImages} from '@socialmedia/utils/localImages';
-import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
+import SCREEN_NAMES from '@socialmedia/navigator/screenNmaes';
 import {useNavigation} from '@react-navigation/native';
 
 export default function seekbarComponent() {

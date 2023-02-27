@@ -9,12 +9,12 @@ import {
   vw,
 } from '@socialmedia/utils/dimensions';
 
-import {COLORS} from '@socialmedia/utils/colors';
+import COLORS from '@socialmedia/utils/colors';
 
 import Slider from '@react-native-community/slider';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from '@socialmedia/navigator/screenNmaes';
-import {LocalImages} from '@socialmedia/utils/localImages';
+import SCREEN_NAMES from '@socialmedia/navigator/screenNmaes';
+import LocalImages from '@socialmedia/utils/localImages';
 import Orientation from 'react-native-orientation-locker';
 interface VideoPlayerComponentType {
   sources: any;
@@ -24,6 +24,7 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
   console.log('source', props);
   const {sources} = props;
   const [pause, setPaused] = useState<boolean>(true);
+  const [load, setLoad] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
   const [videotime, setVideoTime] = useState(0);
   const [refVideo, setRefVideo] = useState<any>('');
@@ -36,18 +37,11 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT / 3.6,
   });
-  console.log('567890', refVideo?.props?.source?.uri);
   const handleDecr = () => {
-    console.log('------->63478', refVideo.seek);
-
     refVideo.seek(currentTime - 10);
-    // setcurrentTime(currentTime - 10);
   };
   const handleInc = () => {
-    console.log('------->63478', refVideo.seek);
-
     refVideo.seek(currentTime + 10);
-    // setcurrentTime(currentTime - 10);
   };
   const handlePausePlay = () => {
     setPaused(!pause);
@@ -55,7 +49,6 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
 
   const onPressFullScreen = () => {
     setIsFullScreen(!isFullScreen);
-    console.log('curreOtnsdf-->', presentOrientation);
     if (presentOrientation.includes('LANDSCAPE')) {
       Orientation.lockToPortrait();
       setfullScreenStyle({
@@ -71,8 +64,6 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
         paddingTop: normalize(20),
       });
     }
-
-    console.log('currrrr', presentOrientation);
   };
 
   const getMinutesFromSeconds = (videoduration: number) => {
@@ -89,12 +80,7 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
       <Video
         source={{
           uri: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        }} // Can be a URL or a local file.
-        //  ref={(ref) => {
-        //    this.player = ref
-        //  }}                                      // Store reference
-        //  onBuffer={this.onBuffer}                // Callback when remote video is buffering
-        //  onError={this.videoError}               // Callback when video cannot be loaded
+        }}
         muted={false}
         controls={false}
         // paused={!play}
@@ -120,16 +106,11 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
         style={{
           height: vh(200),
           width: '100%',
-          // backgroundColor: 'red',
-          // flexDirection: 'row',
-          // alignItems: 'center',
-          // justifyContent: 'space-evenly',
           position: 'absolute',
         }}>
         <View
           style={{
             flexDirection: 'row',
-            borderWidth: 1,
             justifyContent: 'space-between',
             padding: 10,
           }}>
@@ -153,19 +134,13 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
         </View>
         <View
           style={{
-            // flexDirection: 'row',
-            // justifyContent: 'center',
-            borderWidth: 1,
             paddingHorizontal: 5,
-            // marginTop: '7%',
             top:
               fullScreenStyle.height === SCREEN_WIDTH
                 ? SCREEN_WIDTH / 1.9
                 : '50%',
             flexDirection: 'row',
-            // alignItems: 'center',
             justifyContent: 'space-around',
-            // backgroundColor: 'red',
             alignSelf: 'center',
             position: 'absolute',
           }}>
@@ -179,7 +154,6 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
           <TouchableOpacity
             style={{marginHorizontal: normalize(30)}}
             activeOpacity={0.7}
-            //    onPress={props.callback}
             onPress={handlePausePlay}>
             {pause ? (
               <Image
@@ -224,19 +198,13 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
           }}
         />
 
-        <TouchableOpacity
-          activeOpacity={0.7}
-          // style={{flexDirection: 'row'}}
-        ></TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7}></TouchableOpacity>
         <View
           style={{
             flexDirection: 'row',
-            borderWidth: 1,
             justifyContent: 'space-between',
-            // backgroundColor: 'red',
+
             alignItems: 'center',
-            // padding: 10,
-            // bottom: 0,
             position: 'absolute',
             top:
               fullScreenStyle.height === SCREEN_WIDTH
@@ -250,18 +218,7 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
             {OnProgressData}
           </Text>
           <TouchableOpacity style={{}} onPress={onPressFullScreen}>
-            <Image
-              style={[
-                styles.iconStyle,
-                {
-                  // bottom:
-                  //   fullScreenStyle.height === SCREEN_WIDTH
-                  //     ? normalize(-60)
-                  //     : normalize(-30),
-                },
-              ]}
-              source={LocalImages.fullScreen}
-            />
+            <Image style={[styles.iconStyle]} source={LocalImages.fullScreen} />
           </TouchableOpacity>
         </View>
       </View>
@@ -273,16 +230,11 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     height: '100%',
     width: '100%',
-    // backgroundColor: 'red',
   },
   containerStyle: {
-    // flex: 1,
     flexDirection: 'row',
     width: vw(200),
     justifyContent: 'space-between',
-    // alignItems: 'center',
-    // padding: vh(90),
-    // borderWidth: 1,
     marginHorizontal: vw(30),
     marginTop: vh(90),
     marginLeft: vh(90),
@@ -297,7 +249,6 @@ const styles = StyleSheet.create({
     width: '90%',
     position: 'absolute',
     marginHorizontal: '5%',
-    // backgroundColor: 'red',
   },
   timeText: {
     color: COLORS.white,

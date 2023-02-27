@@ -1,15 +1,12 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-// import Articles from '@socialmedia/modules/articles';
-// import Channels from '@socialmedia/modules/channels';
-import Channels from '@socialmedia/modules/channels';
+import React from 'react';
+import SCREEN_NAMES from './screenNmaes';
+import {StyleSheet, Text, View} from 'react-native';
+import COLORS from '@socialmedia/utils/colors';
 import Articles from '@socialmedia/modules/articles';
 import Videos from '@socialmedia/modules/videolist';
-import {COLORS} from '@socialmedia/utils/colors';
-import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
-
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {SCREEN_NAMES} from './screenNmaes';
+import Channels from '@socialmedia/modules/channels';
+import {normalize, vw} from '@socialmedia/utils/dimensions';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
 

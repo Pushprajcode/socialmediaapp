@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Video from 'react-native-video';
 // import COLORS from '../../../utils/colors';
 
-import {LocalImages} from '@socialmedia/utils/localImages';
+import LocalImages from '@socialmedia/utils/localImages';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import Orientation from 'react-native-orientation-locker';
 import {
@@ -13,7 +13,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS} from '@socialmedia/utils/colors';
+import COLORS from '@socialmedia/utils/colors';
 import {normalize, vh, vw} from '@socialmedia/utils/dimensions';
 import TimerAndPauseComponent from '@socialmedia/components/timerAndPauseComponent';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
