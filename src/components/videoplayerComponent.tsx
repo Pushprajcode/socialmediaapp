@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
 import Video from 'react-native-video';
+import React, {useEffect, useState} from 'react';
 import {
   normalize,
   SCREEN_HEIGHT,
@@ -28,10 +28,7 @@ interface VideoPlayerComponentType {
 export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
   const {source} = props;
   const [shimmerLoader, setShimmerLoader] = useState<boolean>(true);
-  console.log('hjkl;jvhkl', typeof source);
-  console.log('567890', source[0]);
   const [pause, setPaused] = useState<boolean>(true);
-
   const [load, setLoad] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
   const [videotime, setVideoTime] = useState(0);
@@ -44,6 +41,10 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT / 3.6,
   });
+  /**
+   * @ fn for shimmer state toggle
+   */
+
   useEffect(() => {
     setTimeout(() => {
       setShimmerLoader(false);
@@ -114,16 +115,10 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
           <Video
             source={{uri: source[0]}}
             muted={false}
-            // controls={false}
             resizeMode="cover"
-            // onLoad={onLoadEnd}
-            // onProgress={onProgress}
-            // onEnd={onEnd}
             style={styles.backgroundVideo}
             paused={!pause}
-            // fullscreenAutorotate={false}
             ref={reference => setRefVideo(reference)}
-            // fullscreen={isFullScreen}
             fullscreenOrientation={'all'}
             controls={false}
             onProgress={obj => setcurrentTime(obj.currentTime)}

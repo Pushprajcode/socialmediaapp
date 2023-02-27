@@ -51,6 +51,12 @@ export default function YouTubePlayer({route}: any) {
       </TouchableOpacity>
     );
   };
+  /**
+   * @ comment section container view
+   * @returns
+   *
+   */
+
   const comments = () => {
     return (
       <View style={styles.commentsContainerView}>
@@ -78,6 +84,10 @@ export default function YouTubePlayer({route}: any) {
     );
   };
 
+  /**
+   * discription  container
+   * @returns
+   */
   const listHeader = () => {
     return (
       <View>
@@ -99,9 +109,9 @@ export default function YouTubePlayer({route}: any) {
           scrollEnabled={false}
         />
         <View style={styles.subcribeContainerView}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={styles.womenIconContainer}>
             <Image style={styles.iconImage} source={LocalImages.womenIcon} />
-            <View style={{marginLeft: vh(19)}}>
+            <View style={styles.technicalContainerView}>
               <Text style={styles.gurujiText}>
                 {local_string.Technicalguruji}
               </Text>
@@ -114,8 +124,12 @@ export default function YouTubePlayer({route}: any) {
       </View>
     );
   };
+
+  /**
+   * video container card
+   * @returns
+   */
   const listRender = ({item}: any) => {
-    console.log(item);
     return (
       <View style={styles.cardContainerView}>
         <CustomCard
@@ -134,6 +148,11 @@ export default function YouTubePlayer({route}: any) {
   const handleExtractor = (item: any, index: any) => {
     return index.toString();
   };
+
+  /**
+   *
+   * @returns videoplayer main container
+   */
   return (
     <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
       <VideoPlayerComponent source={sources} />
@@ -149,6 +168,9 @@ export default function YouTubePlayer({route}: any) {
     </View>
   );
 }
+/**
+ * @styles
+ */
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -245,4 +267,6 @@ const styles = StyleSheet.create({
   },
   commentView: {flexDirection: 'row'},
   viewnoTimeView: {flexDirection: 'row', marginVertical: 10},
+  technicalContainerView: {marginLeft: vh(19)},
+  womenIconContainer: {flexDirection: 'row'},
 });
