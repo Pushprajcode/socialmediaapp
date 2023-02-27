@@ -8,10 +8,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {normalize, SCREEN_HEIGHT} from '@socialmedia/utils/dimensions';
 import COLORS from '@socialmedia/utils/colors';
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('screen').height;
+import {normalize, SCREEN_HEIGHT, vh} from '@socialmedia/utils/dimensions';
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
 /**
@@ -42,9 +42,9 @@ const VideoShimmer = () => {
 /**
  *
  * @returns
+ * shimmer animation handled
  */
 const CustomShimmer = () => {
-  // Handle animation
   const videoContainerRef = React.createRef<any>();
   const textRef = React.createRef<any>();
 
@@ -59,25 +59,25 @@ const CustomShimmer = () => {
   }, []);
 
   return (
-    <View style={styles.customShimmerContainer}>
+    <View style={styles.shimmerContainer}>
       <ShimmerPlaceholder
-        style={styles.videoImageStyle}
+        style={styles.videoImgStyle}
         ref={videoContainerRef}
         stopAutoRun
       />
       <ShimmerPlaceholder
-        style={styles.titleShimmer}
+        style={styles.shimmerTitle}
         ref={textRef}
         stopAutoRun
       />
       <View style={styles.numberViewContainer}>
         <ShimmerPlaceholder
-          style={styles.viewShimmer}
+          style={styles.shimmerView}
           ref={textRef}
           stopAutoRun
         />
         <ShimmerPlaceholder
-          style={styles.channelShimmer}
+          style={styles.shimmercircular}
           ref={textRef}
           stopAutoRun
         />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
   },
-  videoImageStyle: {
+  videoImgStyle: {
     width: windowWidth - 40,
     height: windowHeight / 5,
     marginHorizontal: normalize(20),
@@ -110,21 +110,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  titleShimmer: {
+  shimmerTitle: {
     width: windowWidth - 80,
     height: 20,
     marginHorizontal: normalize(20),
     marginTop: normalize(20),
     borderRadius: normalize(10),
   },
-  viewShimmer: {
+  shimmerView: {
     width: 40,
     height: 40,
     marginRight: normalize(20),
     marginTop: normalize(20),
     borderRadius: normalize(60),
   },
-  customShimmerContainer: {
+  shimmerContainer: {
     width: windowWidth - windowWidth * 0.1,
     backgroundColor: COLORS.grey,
     justifyContent: 'center',
@@ -133,9 +133,9 @@ const styles = StyleSheet.create({
     paddingBottom: normalize(10),
     alignSelf: 'center',
   },
-  channelShimmer: {
+  shimmercircular: {
     width: windowWidth - windowWidth * 0.37,
-    height: 20,
+    height: vh(20),
     marginTop: normalize(20),
     borderRadius: normalize(10),
   },

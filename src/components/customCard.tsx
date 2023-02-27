@@ -16,7 +16,7 @@ interface CustomCardType {
   womenIcon: any;
   subName?: string;
   description?: string;
-  sources?: any;
+  sources?: string;
 }
 
 export default function CustomCard(props: CustomCardType) {

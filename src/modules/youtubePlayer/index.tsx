@@ -14,17 +14,21 @@ import local_string from '@socialmedia/utils/strings';
 import LocalImages from '@socialmedia/utils/localImages';
 import Orientation from 'react-native-orientation-locker';
 import CustomCard from '@socialmedia/components/customCard';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import CustomButton from '@socialmedia/components/customButton';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {iconsData, mediaJson} from '@socialmedia/utils/dummyData';
 import VideoPlayerComponent from '@socialmedia/components/videoplayerComponent';
+import Shimmering from '@socialmedia/components/customShimmerComponent';
 
 export default function YouTubePlayer({route}: any) {
   const insets = useSafeAreaInsets();
   const {title, time, viewNumber, description, sources} = route.params;
   const [switchSource, setswitchSource] = useState(sources[0]);
+  const [simmerload, setSimmerLoad] = useState(true);
   useEffect(() => {
+    // console.log('first');
     Orientation.lockToPortrait();
+    setSimmerLoad(false);
   }, []);
 
   const myCustomShare = async () => {
@@ -37,11 +41,14 @@ export default function YouTubePlayer({route}: any) {
     } catch (error) {}
   };
   const renderImageData = ({item}: any) => {
+    const handleShare = () => {
+      item?.labels == 'Share' ? myCustomShare() : null;
+    };
     return (
       <TouchableOpacity
         style={styles.iconrenderView}
         activeOpacity={0.7}
-        onPress={item?.labels == 'Share' ? myCustomShare : null}>
+        onPress={handleShare}>
         <Image
           resizeMode="contain"
           style={styles.iconsStyle}
@@ -130,19 +137,26 @@ export default function YouTubePlayer({route}: any) {
    * @returns
    */
   const listRender = ({item}: any) => {
+    console.log('first');
     return (
-      <View style={styles.cardContainerView}>
-        <CustomCard
-          image={item?.thumb}
-          title={item?.title}
-          viewNumber={local_string.noView}
-          time={local_string.days}
-          womenIcon={LocalImages.womenIcon}
-          subName={local_string.split}
-          description={item?.description}
-          sources={item?.sources}
-        />
-      </View>
+      <>
+        {simmerload ? (
+          <Shimmering />
+        ) : (
+          <View style={styles.cardContainerView}>
+            <CustomCard
+              image={item?.thumb}
+              title={item?.title}
+              viewNumber={local_string.noView}
+              time={local_string.days}
+              womenIcon={LocalImages.womenIcon}
+              subName={local_string.split}
+              description={item?.description}
+              sources={item?.sources}
+            />
+          </View>
+        )}
+      </>
     );
   };
   const handleExtractor = (item: any, index: any) => {
@@ -153,7 +167,9 @@ export default function YouTubePlayer({route}: any) {
    *
    * @returns videoplayer main container
    */
+
   return (
+    // @ts-ignore
     <View style={[styles.containerStyle, {paddingTop: insets.top}]}>
       <VideoPlayerComponent source={sources} />
       <FlatList

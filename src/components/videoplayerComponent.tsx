@@ -26,6 +26,7 @@ interface VideoPlayerComponentType {
 }
 
 export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
+  // @ts-ignore
   const {source} = props;
   const [shimmerLoader, setShimmerLoader] = useState<boolean>(true);
   const [pause, setPaused] = useState<boolean>(true);
@@ -45,11 +46,11 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
    * @ fn for shimmer state toggle
    */
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShimmerLoader(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShimmerLoader(false);
+  //   }, 2000);
+  // }, []);
 
   const onBuffer = ({isBuffer}: {isBuffer: boolean}) => {
     setLoad(isBuffer);
@@ -109,25 +110,22 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
   return (
     <>
       <View style={fullScreenStyle}>
-        {shimmerLoader ? (
-          <VideoShimmer />
-        ) : (
-          <Video
-            source={{uri: source[0]}}
-            muted={false}
-            resizeMode="cover"
-            style={styles.backgroundVideo}
-            paused={!pause}
-            ref={reference => setRefVideo(reference)}
-            fullscreenOrientation={'all'}
-            controls={false}
-            onProgress={obj => setcurrentTime(obj.currentTime)}
-            onLoad={obj => setVideoTime(obj.duration)}
-            playInBackground={false}
-            playWhenInactive={false}
-            onBuffer={onBuffer}
-          />
-        )}
+        <Video
+          source={{uri: source[0]}}
+          muted={false}
+          resizeMode="cover"
+          style={styles.backgroundVideo}
+          paused={!pause}
+          ref={reference => setRefVideo(reference)}
+          fullscreenOrientation={'all'}
+          controls={false}
+          onProgress={obj => setcurrentTime(obj.currentTime)}
+          onLoad={obj => setVideoTime(obj.duration)}
+          playInBackground={true}
+          playWhenInactive={true}
+          ignoreSilentSwitch={'ignore'}
+          // onBuffer={onBuffer}
+        />
 
         <View style={styles.pausePlayView}>
           <View style={styles.backIconView}>
