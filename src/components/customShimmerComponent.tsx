@@ -80,7 +80,6 @@ const Shimmering = ({colors, gradientStyle, wrapperStyle}: ShimmeringType) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // bottom: -20,
     backgroundColor: COLORS.white,
     borderColor: COLORS.white,
     marginVertical: vh(10),
