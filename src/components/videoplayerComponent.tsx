@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import LocalImages from '@socialmedia/utils/localImages';
 import Orientation from 'react-native-orientation-locker';
 import {
+  ActivityIndicator,
   Image,
   Platform,
   StyleSheet,
@@ -21,6 +22,7 @@ import {
   View,
 } from 'react-native';
 import {VideoShimmer} from './shimmerComponent';
+
 interface VideoPlayerComponentType {
   sources: object;
 }
@@ -28,7 +30,7 @@ interface VideoPlayerComponentType {
 export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
   // @ts-ignore
   const {source} = props;
-  const [shimmerLoader, setShimmerLoader] = useState<boolean>(true);
+  const [loader, setLoader] = useState<boolean>(false);
   const [pause, setPaused] = useState<boolean>(true);
   const [load, setLoad] = useState<boolean>(true);
   const [currentTime, setcurrentTime] = useState(0);
@@ -43,17 +45,11 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
     height: SCREEN_HEIGHT / 3.6,
   });
   /**
-   * @ fn for shimmer state toggle
+   * @ fn for buffering
    */
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShimmerLoader(false);
-  //   }, 2000);
-  // }, []);
-
-  const onBuffer = ({isBuffer}: {isBuffer: boolean}) => {
-    setLoad(isBuffer);
+  const _onBuffer = ({isBuffering}: {isBuffering: boolean}) => {
+    setLoader(isBuffering);
   };
 
   const handleDecr = () => {
@@ -124,7 +120,7 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
           playInBackground={true}
           playWhenInactive={true}
           ignoreSilentSwitch={'ignore'}
-          // onBuffer={onBuffer}
+          onBuffer={_onBuffer}
         />
 
         <View style={styles.pausePlayView}>
@@ -150,6 +146,15 @@ export default function VideoPlayerComponent(props: VideoPlayerComponentType) {
               <Image style={styles.doticonStyle} source={LocalImages.doticon} />
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={styles.indicatorStyle}>
+          {loader && (
+            <ActivityIndicator
+              animating={true}
+              color={COLORS.tabbarColor}
+              size="large"
+            />
+          )}
         </View>
 
         <View
@@ -275,6 +280,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // padding: vh(14),
+  },
+  indicatorStyle: {
+    bottom: vh(150),
   },
   pausePlayView: {
     width: '100%',
